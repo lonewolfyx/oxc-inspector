@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between items-center p-4">
+    <div class="flex justify-between items-center p-4 **:data-[slot=separator]:!h-4">
         <span
             :class="cn(
                 'text-2xl',
