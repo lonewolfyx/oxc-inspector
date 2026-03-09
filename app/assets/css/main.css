@@ -126,3 +126,10 @@
         @apply flex grow flex-col w-full h-full;
     }
 }
+
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
