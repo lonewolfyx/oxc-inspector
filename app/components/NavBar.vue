@@ -44,7 +44,7 @@
                         :name="menu.icon"
                         mode="svg"
                     />
-                    {{ menu.name }}
+                    {{ menu.label }}
                 </NuxtLink>
             </Button>
         </div>
@@ -66,18 +66,22 @@ const routeName = computed(() => route.name as NavBar)
 const navMenus = [
     {
         name: 'projects',
+        label: 'projects',
         icon: 'ph:diamonds-four-duotone',
     },
     {
         name: 'configs',
+        label: 'configs',
         icon: 'ph:stack-duotone',
     },
     {
         name: 'rules',
+        label: 'rules',
         icon: 'ph:list-dashes-duotone',
     },
     {
         name: 'oxfmt',
+        label: 'oxfmt',
         icon: 'ph:paint-brush-broad-fill',
     },
 ]
