@@ -40,6 +40,19 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-oxc: var(--oxc);
+    --color-oxc-50: var(--oxc-50);
+    --color-oxc-100: var(--oxc-100);
+    --color-oxc-200: var(--oxc-200);
+    --color-oxc-300: var(--oxc-300);
+    --color-oxc-400: var(--oxc-400);
+    --color-oxc-500: var(--oxc-500);
+    --color-oxc-600: var(--oxc-600);
+    --color-oxc-700: var(--oxc-700);
+    --color-oxc-800: var(--oxc-800);
+    --color-oxc-900: var(--oxc-900);
+    --color-oxc-950: var(--oxc-950);
 }
 
 :root {
@@ -76,6 +89,19 @@
     --sidebar-ring: oklch(0.708 0 0);
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
+
+    --oxc: oklch(0.8733 0.1435 189.33);
+    --oxc-50: oklch(18.95% 0.031 191.12);
+    --oxc-100: oklch(28.01% 0.046 190.29);
+    --oxc-200: oklch(44.20% 0.075 189.77);
+    --oxc-300: oklch(59.26% 0.101 188.75);
+    --oxc-400: oklch(73.17% 0.126 188.84);
+    --oxc-500: oklch(86.44% 0.149 188.89);
+    --oxc-600: oklch(87.82% 0.140 189.83);
+    --oxc-700: oklch(89.86% 0.120 190.65);
+    --oxc-800: oklch(92.45% 0.087 192.17);
+    --oxc-900: oklch(95.92% 0.046 193.08);
+    --oxc-950: oklch(97.98% 0.024 190.45);
 }
 
 .dark {
@@ -111,6 +137,20 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+
+    --oxc: oklch(0.4799 0.0788 205.48);
+    --oxc-50: oklch(97.44% 0.020 200.65);
+    --oxc-100: oklch(95.02% 0.039 202.38);
+    --oxc-200: oklch(90.26% 0.074 203.31);
+    --oxc-300: oklch(86.23% 0.104 203.08);
+    --oxc-400: oklch(82.58% 0.124 204.17);
+    --oxc-500: oklch(79.79% 0.134 205.25);
+    --oxc-600: oklch(67.48% 0.113 205.46);
+    --oxc-700: oklch(54.85% 0.091 204.75);
+    --oxc-800: oklch(41.16% 0.067 204.97);
+    --oxc-900: oklch(26.50% 0.041 202.79);
+    --oxc-950: oklch(18.07% 0.026 204.31);
+
 }
 
 @layer base {
@@ -124,6 +164,10 @@
 
     #__nuxt {
         @apply flex grow flex-col w-full h-full;
+    }
+
+    .color-active{
+        @apply text-teal-600 dark:text-teal-400 hover:!text-teal-600 border-teal-600/25 dark:border-teal-400/25 !bg-teal-400/10 hover:!bg-teal-400/5;
     }
 }
 
