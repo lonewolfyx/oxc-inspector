@@ -1,5 +1,5 @@
 <template>
-    <Body class="antialiased flex h-full text-base text-background bg-background">
+    <Body class="antialiased flex h-full text-base text-foreground bg-background">
         <div class="absolute inset-0 z-0">
             <div class="relative h-full w-full">
                 <div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(#0000001a_1px,#f8fafc_1px)] bg-[size:16px_16px] " />
