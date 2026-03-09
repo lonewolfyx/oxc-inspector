@@ -1,14 +1,17 @@
 <template>
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center **:data-[slot=separator]:!h-4">
-            <span
-                :class="cn(
-                    'text-2xl',
-                    'font-mono font-extralight font-stretch-condensed',
-                )"
-            >
-                Oxidation Compiler Config Inspector
-            </span>
+            <NuxtLink class="flex items-center gap-2">
+                <img src="/favicon.svg" class="inline-block size-12" :alt="app.shortTitle">
+                <span
+                    :class="cn(
+                        'text-2xl capitalize',
+                        'font-mono font-extralight font-stretch-condensed',
+                    )"
+                >
+                    {{ app.title }}
+                </span>
+            </NuxtLink>
             <div class="flex items-center gap-3">
                 <GitHubLink />
                 <Separator orientation="vertical" />
@@ -46,6 +49,7 @@ defineOptions({
     name: 'NavBar',
 })
 
+const app = useAppConfig()
 const route = useRoute()
 const routeName = computed(() => route.name as NavBar)
 
