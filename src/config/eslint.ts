@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-explicit-any
 import type { ESLintConfig, FlatConfigItem, IResolveConfigPath, RuleInfo } from '../types'
 import c from 'ansis'
 import { bundleRequire } from 'bundle-require'
