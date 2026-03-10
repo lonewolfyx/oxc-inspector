@@ -38,6 +38,26 @@ async function readConfig(options: IResolveConfig) {
     await resolveEslintRulesConfig(resolvedConfigPath)
 
     const payload = {
+        oxlint: {
+            // current .oxlint.json
+            config: {},
+            // default oxlint rule option
+            rules: {},
+        },
+        oxfmt: {
+            // current .oxfmt.json
+            config: {},
+            // default oxfmt rule option
+            rules: {},
+        },
+        eslint: {
+            // current eslint.config.{j,t,mj,mt}s
+            config: {},
+            // default eslint config
+            rules: [],
+            // match eslint config files
+            files: [],
+        },
         meta: {
             version: {
                 oxlint: linterVersion,
