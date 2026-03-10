@@ -45,9 +45,9 @@ async function readConfig(options: IResolveConfig) {
         console.log(await (mod.default ?? mod))
     }
 
-    await resolveEslintRulesConfig(resolvedConfigPath)
+    const eslintConfig = await resolveEslintRulesConfig(resolvedConfigPath)
 
-    const payload = {
+    return {
         oxlint: {
             // current .oxlint.json
             config: {},
@@ -62,11 +62,9 @@ async function readConfig(options: IResolveConfig) {
         },
         eslint: {
             // current eslint.config.{j,t,mj,mt}s
-            config: {},
+            config: eslintConfig.configs,
             // default eslint config
-            rules: [],
-            // match eslint config files
-            files: [],
+            rules: eslintConfig.rules,
         },
         meta: {
             version: {
@@ -80,8 +78,6 @@ async function readConfig(options: IResolveConfig) {
             eslintConfigPath,
         },
     }
-
-    console.log(payload)
 }
 
-readConfig(resolveConfig()).then(() => {})
+readConfig(resolveConfig()).then(r => console.log(r))
