@@ -2,8 +2,7 @@ import type { ILinterInspectorPayload, IResolveConfig } from './types'
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import c from 'ansis'
-import { resolveConfig, resolveConfigPath, resolveEslintRulesConfig } from './config'
-import { resolveOXLintConfig } from './config/oxlint'
+import { resolveConfig, resolveConfigPath, resolveEslintRulesConfig, resolveOXLintConfig } from './config'
 import { MARK_INFO } from './constants'
 import { ConfigInspectorError } from './error'
 
@@ -69,5 +68,9 @@ async function readConfig(options: IResolveConfig): Promise<ILinterInspectorPayl
 
 readConfig(resolveConfig()).then((r) => {
     console.log(r)
-    writeFileSync(resolve(r.meta.basePath, 'oxc-inspector.meta.json'), JSON.stringify(r, null, 2), 'utf-8')
+    writeFileSync(
+        resolve(r.meta.basePath, 'oxc-inspector.meta.json'),
+        JSON.stringify(r, null, 2),
+        'utf-8',
+    )
 })
