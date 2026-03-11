@@ -127,5 +127,5 @@ defineProps<{
     format: IFormatConfigMeta
 }>()
 
-const isOpen = ref<boolean>(true)
+const isOpen = ref<boolean>(false)
 </script>
