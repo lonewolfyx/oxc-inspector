@@ -2,10 +2,13 @@
     <Collapsible
         v-model:open="isOpen"
         :class="cn(
-            'flex flex-col border rounded-xl',
+            'relative flex flex-col border rounded-xl',
             'font-mono cursor-pointer',
         )"
     >
+        <div class="absolute right-[calc(100%+10px)] top-1.5 font-mono opacity-35 max-lg:hidden">
+            #{{ index + 1 }}
+        </div>
         <CollapsibleTrigger
             :class="cn(
                 'flex justify-between items-start w-full',
@@ -125,6 +128,7 @@ defineOptions({
 
 defineProps<{
     format: IFormatConfigMeta
+    index: number
 }>()
 
 const isOpen = ref<boolean>(false)
