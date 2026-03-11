@@ -1,5 +1,5 @@
 <template>
-    <Body class="antialiased flex h-full text-base text-foreground bg-zinc-100">
+    <Body class="antialiased flex h-full text-base text-foreground bg-slate-50 dark:bg-slate-900">
         <div class="absolute inset-0 z-0">
             <div class="relative h-full w-full bg-slate-50 dark:bg-slate-900">
                 <div
