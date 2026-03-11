@@ -58,7 +58,7 @@ export async function resolveOXFormatConfig(options: IResolveConfigPath): Promis
 
     configs.set('oxfmt/default', {
         name: 'oxfmt/global/default',
-        ...rawConfigs,
+        options: rawConfigs,
     })
 
     return Array.from(configs.values())
