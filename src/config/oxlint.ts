@@ -107,18 +107,18 @@ async function resolveLinterRules(
     const parsePluginRules = async (plugin: string) => {
         const module = (await interopDefault(import(plugin))) as ESLint.Plugin
 
-        for (const [rule, ruleMeta] of Object.entries(module.rules)) {
+        for (const [rule, ruleMeta] of Object.entries(module?.rules ?? [])) {
             rules.set(rule, {
                 name: rule,
                 type: 'plugin',
                 source: plugin,
                 fixable: ruleMeta.meta?.fixable ?? '',
                 docs: {
-                    description: ruleMeta.meta.docs.description,
-                    url: ruleMeta.meta.docs.url,
+                    description: ruleMeta?.meta?.docs?.description ?? '',
+                    url: ruleMeta?.meta?.docs?.url ?? '',
                 },
-                defaultOptions: ruleMeta.meta.defaultOptions ?? [],
-                schema: ruleMeta.meta.schema,
+                defaultOptions: ruleMeta?.meta?.defaultOptions ?? [],
+                schema: ruleMeta?.meta?.schema ?? [],
             })
         }
     }
