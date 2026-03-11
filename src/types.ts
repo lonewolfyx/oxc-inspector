@@ -3,7 +3,7 @@
 import type { RuleMetaData } from '@typescript-eslint/utils/ts-eslint'
 import type { Linter } from 'eslint'
 import type { JSONSchema4 } from 'json-schema'
-import type { AllowWarnDeny, DummyRule, ExternalPluginEntry } from 'oxlint'
+import type { AllowWarnDeny, DummyRule, DummyRuleMap, ExternalPluginEntry } from 'oxlint'
 
 export interface IResolveConfig {
     cwd: string
@@ -50,6 +50,31 @@ export interface IRulesMeta {
     schema: JSONSchema4
 }
 
+type LintPluginOptionsSchema
+    = | 'eslint'
+        | 'react'
+        | 'unicorn'
+        | 'typescript'
+        | 'oxc'
+        | 'import'
+        | 'jsdoc'
+        | 'jest'
+        | 'vitest'
+        | 'jsx-a11y'
+        | 'nextjs'
+        | 'react-perf'
+        | 'promise'
+        | 'node'
+        | 'vue'
+
+export interface IResolveConfigMeta {
+    name: string
+    rules?: DummyRuleMap
+    plugins?: LintPluginOptionsSchema[] | ExternalPluginEntry[] | null
+    ignores?: string[]
+    files?: string[]
+}
+
 export interface IResolveConfigRules {
     [k: string]: {
         level: AllowWarnDeny
@@ -64,7 +89,7 @@ export interface IResolveLinterConfigRules {
 
 export interface IOXLintConfig {
     plugins: ExternalPluginEntry[]
-    configs: IResolveConfigRules
+    configs: IResolveConfigMeta[]
     rules: IResolveLinterConfigRules
 }
 

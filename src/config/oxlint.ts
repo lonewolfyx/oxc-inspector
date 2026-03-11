@@ -1,62 +1,78 @@
 // oxlint-disable typescript/no-explicit-any
 
 import type { ESLint } from 'eslint'
-import type { DummyRule, ExternalPluginEntry, OxlintConfig } from 'oxlint'
+import type { ExternalPluginEntry, OxlintConfig } from 'oxlint'
 import type { IOxlintRules, oxlintRuleMeta } from 'oxlint-rules-meta'
-import type { IOXLintConfig, IResolveConfigPath, IResolveConfigRules, IResolveLinterConfigRules } from '../types'
+import type { IOXLintConfig, IResolveConfigMeta, IResolveConfigPath, IResolveLinterConfigRules } from '../types'
 import { interopDefault } from '@antfu/eslint-config'
 import { isObject } from '@vueuse/core'
 import c from 'ansis'
 import { getRuleMeta } from 'oxlint-rules-meta'
 import { x } from 'tinyexec'
-import { MARK_INFO } from '../constants'
+import { MARK_INFO } from '../constants' // loading use lint rules
 
-function getRuleLevel(level: DummyRule) {
-    const first = Array.isArray(level) ? level[0] : level
+// loading use lint rules config
+function resolveConfigRules(config: OxlintConfig): IResolveConfigMeta[] {
+    const configs = new Map<string, IResolveConfigMeta>()
 
-    switch (first) {
-        case 0:
-            return 'off'
-        case 1:
-            return 'warn'
-        case 2:
-            return 'error'
-        default:
-            return first
-    }
-}
-
-// loading use lint rules
-function resolveConfigRules(
-    config: OxlintConfig,
-    rawRules: IResolveLinterConfigRules,
-): IResolveConfigRules {
-    const rules = new Map<string, any>()
-    const mergeRules = (configs: any) => {
-        Object.entries(configs).forEach(([rule, dummyRule]) => {
-            if (!rules.has(rule)) {
-                rules.set(rule, [])
-            }
-            rules.get(rule)!.push({
-                level: getRuleLevel(dummyRule as DummyRule),
-                options: Array.isArray(dummyRule) ? dummyRule.slice(1) : {},
-                meta: rawRules[rule] ?? rawRules[rule.split('/').pop()!],
-            })
-        })
-    }
     if (config.rules) {
-        mergeRules(config.rules)
+        const globalRules: IResolveConfigMeta = {
+            name: 'oxlint/global/rules',
+            rules: config.rules,
+        }
+
+        if (config.plugins) {
+            globalRules.plugins = config.plugins
+        }
+
+        if (config.jsPlugins) {
+            globalRules.plugins = Object.values({
+                ...globalRules.plugins,
+                ...config.jsPlugins.map((p: ExternalPluginEntry) => (isObject(p) ? p.specifier : p)),
+            }) as string[]
+        }
+
+        configs.set('oxlint/global/rules', globalRules)
+    }
+
+    if (config.ignorePatterns) {
+        configs.set('oxlint/ignorePatterns', {
+            name: 'oxlint/ignorePatterns',
+            ignores: config.ignorePatterns,
+        })
     }
 
     if (config.overrides) {
-        config.overrides.forEach((override) => {
-            if (override.rules) {
-                mergeRules(override.rules)
+        config.overrides.forEach((override, index) => {
+            const name = `oxlint/overrides/${index + 1}`
+            const tempConfigs: IResolveConfigMeta = {
+                name,
             }
+
+            if (override.files) {
+                tempConfigs.files = override.files
+            }
+
+            if (override.rules) {
+                tempConfigs.rules = override.rules
+            }
+
+            if (override.plugins) {
+                tempConfigs.plugins = override.plugins
+            }
+
+            if (override.jsPlugins) {
+                tempConfigs.plugins = Object.values({
+                    ...tempConfigs.plugins,
+                    ...override.jsPlugins.map((p: ExternalPluginEntry) => (isObject(p) ? p.specifier : p)),
+                }) as string[]
+            }
+
+            configs.set(name, tempConfigs)
         })
     }
 
-    return Object.fromEntries(rules.entries())
+    return Array.from(configs.values())
 }
 
 // loading config use plugins
@@ -157,7 +173,7 @@ export async function resolveOXLintConfig(options: IResolveConfigPath): Promise<
 
     const rules = await resolveLinterRules(JSON.parse(rawLinterRules.stdout.trim()), plugins)
 
-    const configs = resolveConfigRules(rawLinterConfigs, rules)
+    const configs = resolveConfigRules(rawLinterConfigs)
 
     return {
         plugins,
