@@ -1,4 +1,5 @@
-import type { IFormatConfigMeta, IFormatOptions, IResolveConfigPath } from '~~/src/types'
+import type { IFormatConfigMeta, IFormatOptions } from '#shared/types/inspector'
+import type { IResolveConfigPath } from '~~/src/types'
 import { readFile } from 'node:fs/promises'
 import c from 'ansis'
 import defu from 'defu'
