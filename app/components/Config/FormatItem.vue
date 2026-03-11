@@ -45,9 +45,9 @@
         <div class="flex gap-2 items-start">
             <Icon class="my-1 flex-none text-lg" mode="svg" name="ph:sliders-duotone" />
             <div class="flex flex-col gap-3 w-full">
-                <span class="font-mono font-medium">Options</span>
+                <span class="font-mono font-medium">Additional configurations</span>
                 <div class="flex flex-col border rounded-lg w-full">
-                    <div class="overflow-auto p-2 px-3 bg-zinc-50 rounded-t-lg">
+                    <div class="overflow-auto p-2 px-3 bg-zinc-50 rounded-t-lg opacity-50">
                         formatOptions
                     </div>
                     <Shiki
