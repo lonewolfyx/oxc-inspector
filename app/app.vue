@@ -1,9 +1,11 @@
 <template>
-    <SiteBody>
-        <ConfigInspectorContainer>
-            <ConfigInspector />
-        </ConfigInspectorContainer>
-    </SiteBody>
+    <TooltipProvider>
+        <SiteBody>
+            <ConfigInspectorContainer>
+                <ConfigInspector />
+            </ConfigInspectorContainer>
+        </SiteBody>
+    </TooltipProvider>
 </template>
 
 <script setup lang="ts">
