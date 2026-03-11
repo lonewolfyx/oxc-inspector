@@ -1,6 +1,7 @@
+// oxlint-disable typescript/no-explicit-any
+
 import type { RuleMetaData } from '@typescript-eslint/utils/ts-eslint'
 import type { Linter } from 'eslint'
-// oxlint-disable typescript/no-explicit-any
 import type { JSONSchema4 } from 'json-schema'
 import type { AllowWarnDeny, DummyRule, ExternalPluginEntry } from 'oxlint'
 
@@ -73,7 +74,7 @@ export interface ILinterInspectorPayload {
         config: object
         rules: object
     }
-    eslint: ESLintConfig
+    eslint: Omit<ESLintConfig, 'dependencies'>
     meta: {
         version: {
             oxlint: string
