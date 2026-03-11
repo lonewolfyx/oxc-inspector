@@ -109,20 +109,3 @@ export type IFormatConfigOptions = FormatOptions | IFormatOverRides
 export type IFormatConfigMeta = IFormatConfigOptions & {
     name: string
 }
-
-export interface ILinterInspectorPayload {
-    oxlint: IOXLintConfig
-    oxfmt: IFormatConfigMeta[] | null
-    eslint: Omit<ESLintConfig, 'dependencies'>
-    meta: {
-        version: {
-            oxlint: string
-            oxfmt: string
-        }
-        lastUpdate: number
-        basePath: string
-        lintConfigPath: string
-        formatConfigPath: string
-        eslintConfigPath: string
-    }
-}
