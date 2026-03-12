@@ -50,7 +50,7 @@ export interface IRulesMeta {
     schema: JSONSchema4
 }
 
-type LintPluginOptionsSchema
+export type LintPluginOptionsSchema
     = | 'eslint'
         | 'react'
         | 'unicorn'
