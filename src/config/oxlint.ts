@@ -120,7 +120,7 @@ async function resolveLinterRules(
                 description: meta.docs.description,
                 url: meta.docs.url,
             },
-            defaultOptions: meta.schema ?? [],
+            defaultOptions: meta.defaultOptions,
             schema: meta.schema,
         })
     })
