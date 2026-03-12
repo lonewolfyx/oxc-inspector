@@ -27,7 +27,7 @@
             </template>
             <span class="opacity-50">,</span>
             <span class="opacity-50">Composed with</span>
-            <span class="font-bold">74</span>
+            <span class="font-bold">{{ Object.keys(oxLinter.configs).length }}</span>
             <span class="opacity-50">config items</span>
         </div>
         <div class="flex justify-start items-center gap-4">
@@ -69,7 +69,7 @@ const app = useAppConfig()
 const route = useRoute()
 const routeName = computed(() => route.name as NavBar)
 
-const { metaOptions, oxFormat } = useConfigInspector()
+const { metaOptions, oxFormat, oxLinter } = useConfigInspector()
 
 const navMenus = [
     {
