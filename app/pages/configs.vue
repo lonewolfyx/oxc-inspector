@@ -1,63 +1,114 @@
 <template>
     <div class="flex flex-col space-y-6">
-        <Collapsible
-            v-model:open="isOpen"
-            :class="cn(
-                'relative flex flex-col border rounded-xl',
-                'font-mono cursor-pointer',
-            )"
+        <ConfigCard
+            v-for="(linter, index) in oxLinter.configs as IResolveConfigMeta[]"
+            :key="linter.name"
+            :index="index + 1"
+            :title="linter.name"
         >
-            <div class="absolute right-[calc(100%+10px)] top-1.5 font-mono opacity-35 max-lg:hidden">
-                #22
-            </div>
-            <CollapsibleTrigger
-                :class="cn(
-                    'flex justify-between items-start w-full',
-                    'bg-teal-500/5 p-2',
-                    isOpen ? 'rounded-t-xl' : 'rounded-xl',
-                )"
-            >
-                <span class="text-sm">
-                    <ColorConfigName name="sssss" />
-                </span>
-                <div class="flex gap-4 items-center">
-                    <ConfigStateFiles />
-                    <ConfigStateIgnores />
-                    <ConfigStatePlugins />
-                    <ConfigStateRules />
-                </div>
-            </CollapsibleTrigger>
+            <template #state>
+                <ConfigStateFiles
+                    :count="linter?.files ? linter?.files.length : ''"
+                />
+                <ConfigStateIgnores
+                    :count="linter?.ignores ? linter?.ignores.length : ''"
+                />
+                <ConfigStatePlugins
+                    :count="linter?.plugins ? linter?.plugins.length : ''"
+                />
+                <ConfigStateRules
+                    :count="linter?.rules ? Object.keys(linter.rules).length : ''"
+                />
+            </template>
 
-            <CollapsibleContent
-                :class="cn(
-                    'flex flex-col gap-4 px-4 py-3',
-                    'bg-zinc-50/50 rounded-b-xl',
-                )"
-            >
-                <div class="flex gap-2 items-start">
-                    <Icon
-                        class="my-1 flex-none"
-                        mode="svg"
-                        name="ph:eye-closed-duotone"
-                    />
+            <div v-if="linter.files" class="flex gap-2 items-start">
+                <Icon
+                    class="my-1 flex-none text-lg"
+                    mode="svg"
+                    name="ph:file-magnifying-glass-duotone"
+                />
+                <div class="flex flex-col gap-3">
+                    <span class="font-mono font-medium">Applies to files matching</span>
+                    <div class="flex gap-2 items-center flex-wrap">
+                        <Badge
+                            v-for="file in linter.files"
+                            :key="file"
+                            variant="secondary"
+                        >
+                            <ColorConfigName :name="file" />
+                        </badge>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="linter.ignores" class="flex gap-2 items-start">
+                <Icon
+                    class="my-1 flex-none text-xl"
+                    mode="svg"
+                    name="ph:eye-closed-duotone"
+                />
+                <div class="flex flex-col gap-3">
+                    <span class="font-mono font-medium">Ignore files globally</span>
+                    <div class="flex gap-2 items-center flex-wrap">
+                        <Badge
+                            v-for="ignor in linter.ignores"
+                            :key="ignor"
+                            variant="secondary"
+                        >
+                            <ColorConfigName :name="ignor" />
+                        </badge>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="linter.plugins?.length" class="flex gap-2 items-start">
+                <Icon
+                    class="my-1 flex-none text-xl"
+                    mode="svg"
+                    name="ph:plug-duotone"
+                />
+                <div class="flex flex-col gap-3">
+                    <span class="font-mono font-medium">Plugins</span>
+                    <div class="flex gap-2 items-center flex-wrap">
+                        <Badge
+                            v-for="plugin in linter.plugins as LintPluginOptionsSchema[] | ExternalPluginEntry[]"
+                            :key="isObject(plugin) ? plugin.specifier : plugin"
+                            variant="secondary"
+                        >
+                            <ColorConfigName :name="isObject(plugin) ? plugin.specifier : plugin" />
+                        </badge>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="linter.rules" class="flex gap-2 items-start">
+                <Icon
+                    class="my-1 flex-none text-xl"
+                    mode="svg"
+                    name="ph:list-dashes-duotone"
+                />
+                <div class="flex-1">
                     <div class="flex flex-col gap-3">
-                        <span class="text-sm font-mono font-medium">Ignore files globally</span>
-                        <div class="flex gap-2 items-center flex-wrap">
-                            <Badge
-                                variant="secondary"
-                            >
-                                <ColorConfigName name="asdasd.ts" />
-                            </badge>
+                        <span class="font-mono font-medium">Rules</span>
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                            <RuleList
+                                v-for="rule in Object.entries(linter.rules)"
+                                :key="rule[0]"
+                                :rule="rule"
+                            />
                         </div>
                     </div>
                 </div>
-            </CollapsibleContent>
-        </Collapsible>
+            </div>
+        </ConfigCard>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { cn } from '~/lib/utils'
+import type { LintPluginOptionsSchema } from '#shared/types/types'
+import type { ExternalPluginEntry } from 'oxlint'
+import { isObject } from '@vueuse/core'
+import { useConfigInspector } from '~/components/Config'
 
-const isOpen = ref(true)
+const { oxLinter } = useConfigInspector()
 </script>

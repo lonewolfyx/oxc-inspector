@@ -1,6 +1,6 @@
 import type { FormatOptions } from 'oxfmt'
 import type { ComputedRef, Ref, ShallowRef } from 'vue'
-import type { ESLintConfig, IOXLintConfig } from '~~/src/types'
+import type { ESLintConfig, IOXLintConfig } from './types'
 
 export interface IFormatOverRides {
     excludeFiles: string[]
@@ -18,26 +18,30 @@ export type IFormatConfigMeta = IFormatConfigOptions & {
     name: string
 }
 
+export interface IConfigInspectorMeta {
+    version: {
+        oxlint: string
+        oxfmt: string
+    }
+    lastUpdate: number
+    basePath: string
+    lintConfigPath: string
+    formatConfigPath: string
+    eslintConfigPath: string
+}
+
 export interface ILinterInspectorPayload {
     oxlint: IOXLintConfig
     oxfmt: IFormatConfigMeta[] | null
     eslint: Omit<ESLintConfig, 'dependencies'>
-    meta: {
-        version: {
-            oxlint: string
-            oxfmt: string
-        }
-        lastUpdate: number
-        basePath: string
-        lintConfigPath: string
-        formatConfigPath: string
-        eslintConfigPath: string
-    }
+    meta: IConfigInspectorMeta
 }
 
 export interface IConfigInspector {
     loading: Ref<boolean>
     payload?: ShallowRef<ILinterInspectorPayload>
+    oxLinter: ComputedRef
     oxFormat: ComputedRef<IFormatConfigMeta[] | null>
-    metaOptions: ComputedRef<ILinterInspectorPayload['meta']>
+    metaOptions: ComputedRef<IConfigInspectorMeta>
+    oxRules: ComputedRef
 }
