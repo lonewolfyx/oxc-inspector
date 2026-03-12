@@ -3,13 +3,13 @@
         v-model:open="isOpen"
         :class="cn(
             'relative flex flex-col border rounded-xl',
-            'font-mono cursor-pointer',
+            'font-mono',
         )"
     >
         <ConfigStateLine :index="index" />
         <CollapsibleTrigger
             :class="cn(
-                'flex justify-between items-start w-full',
+                'flex justify-between items-start w-full cursor-pointer',
                 'bg-teal-500/5 p-2',
                 isOpen ? 'rounded-t-xl' : 'rounded-xl',
             )"
