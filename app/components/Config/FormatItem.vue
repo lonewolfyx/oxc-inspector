@@ -47,13 +47,13 @@
             <div class="flex flex-col gap-3 w-full">
                 <span class="font-mono font-medium">Additional configurations</span>
                 <div class="flex flex-col border rounded-lg w-full">
-                    <div class="overflow-auto p-2 px-3 bg-zinc-50 rounded-t-lg opacity-50">
+                    <div class="overflow-auto p-2 px-3 bg-zinc-50 dark:bg-slate-800 rounded-t-lg opacity-50">
                         formatOptions
                     </div>
                     <Shiki
                         :class="cn(
                             'w-full max-w-full max-h-100',
-                            'overflow-scroll bg-zinc-100 rounded-b-lg p-2 text-sm',
+                            'overflow-scroll bg-zinc-100 dark:bg-slate-800/20 rounded-b-lg p-2 text-sm',
                         )"
                         :code="stringifyUnquoted(format.options)"
                         lang="ts"

@@ -8,7 +8,7 @@
                         :prefix="rule.source"
                     />
                 </PopoverTrigger>
-                <PopoverContent class="max-h-[50vh] w-2xl overflow-scroll">
+                <PopoverContent class="max-h-[50vh] w-auto max-w-2xl overflow-scroll">
                     <div class="flex flex-col gap-2">
                         <div class="flex items-center border-b pb-2 gap-2">
                             <Button as-child size="sm" variant="secondary">
@@ -42,7 +42,7 @@
                                     :key="idx"
                                     :class="cn(
                                         'w-full max-w-full max-h-100',
-                                        'overflow-scroll bg-zinc-100 rounded-lg p-2 text-sm',
+                                        'overflow-scroll bg-zinc-100 dark:bg-slate-800/20 rounded-lg p-2 text-sm',
                                     )"
                                     :code="stringifyOptions(options)"
                                     lang="ts"
@@ -54,7 +54,7 @@
                                     :key="idx"
                                     :class="cn(
                                         'w-full max-w-full max-h-100',
-                                        'overflow-scroll bg-zinc-100 rounded-lg p-2 text-sm',
+                                        'overflow-scroll bg-zinc-100 dark:bg-slate-800/20 rounded-lg p-2 text-sm',
                                     )"
                                     :code="stringifyOptions(options)"
                                     lang="ts"

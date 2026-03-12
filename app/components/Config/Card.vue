@@ -10,7 +10,7 @@
         <CollapsibleTrigger
             :class="cn(
                 'flex justify-between items-start w-full cursor-pointer',
-                'bg-teal-500/5 p-2',
+                'bg-teal-500/5 dark:bg-slate-800/50 p-2',
                 isOpen ? 'rounded-t-xl' : 'rounded-xl',
             )"
         >
@@ -25,7 +25,7 @@
             :class="cn(
                 'flex flex-col gap-4',
                 'px-4 py-3',
-                'bg-zinc-50/50 rounded-b-xl',
+                'bg-zinc-50/50 dark:bg-slate-800/20 rounded-b-xl',
             )"
         >
             <slot />
