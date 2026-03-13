@@ -23,12 +23,11 @@
         "dist"
     ],
     "scripts": {
-        "build": "nuxt build && tsdown && node ./bin/cli.js build",
+        "build": "nuxt build && tsdown",
         "dev": "nuxt dev",
         "dev:cli": "tsdown --watch",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare",
         "typecheck": "nuxt typecheck",
         "lint": "eslint .",
         "lint:fix": "eslint --fix",
