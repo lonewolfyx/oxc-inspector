@@ -1,6 +1,8 @@
 import { computed, defineComponent, h } from 'vue'
 import { getPluginColor } from '~/composables/color'
 
+// source from: eslint-inspector
+
 export default defineComponent({
     name: 'ColorConfigName',
     props: {
@@ -27,14 +29,12 @@ export default defineComponent({
             }
             else {
                 return h('span', [
-                    h('span', { class: 'op50 italic' }, 'anonymous'),
+                    h('span', { class: 'opacity-50 font-italic' }, 'anonymous'),
                     props.index != null
-                        ? h('span', { class: 'op50 text-sm' }, ` #${props.index + 1}`)
+                        ? h('span', { class: 'opacity-50 text-sm' }, ` #${props.index + 1}`)
                         : null,
                 ])
             }
         }
     },
 })
-
-// @unocss-include
