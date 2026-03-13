@@ -20,8 +20,7 @@ export async function readConfig(
     } = resolvedConfigPath
 
     const projects = await getProjectConfig(resolvedConfigPath)
-    // console.log(projects)
-    // process.exit(0)
+
     const oxfmt = await resolveOXFormatConfig(resolvedConfigPath)
 
     const oxlint = await resolveOXLintConfig(resolvedConfigPath)
@@ -33,9 +32,7 @@ export async function readConfig(
         oxlint,
         oxfmt,
         eslint: {
-            // current eslint.config.{j,t,mj,mt}s
             configs: eslintConfig.configs,
-            // default eslint config
             rules: eslintConfig.rules,
         },
         meta: {
