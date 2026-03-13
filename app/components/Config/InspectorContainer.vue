@@ -25,13 +25,13 @@ let _promise: Promise<ILinterInspectorPayload | undefined> | undefined
 
 async function getData(baseURL: string) {
     const payload = await $fetch<ILinterInspectorPayload | ErrorInfo>(`/api/payload.json`, { baseURL })
-    console.log(payload)
     if ('error' in payload) {
         loading.value = false
         return ''
     }
     loading.value = false
     data.value = payload
+    console.log('[OXC Config Inspector] Config payload', payload)
     return payload
 }
 
