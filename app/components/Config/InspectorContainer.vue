@@ -31,23 +31,24 @@ const oxRules = computed(() => {
                     ? rawName.split('/').slice(1).join('/')
                     : rawName
 
-                let optionsList: any[] = []
-                if (Array.isArray(ruleConfig)) {
-                    if (Array.isArray(ruleConfig[1]))
-                        optionsList = ruleConfig[1]
-                }
-
                 if (!acc[ruleName]) {
-                    acc[ruleName] = { options: [] }
+                    acc[ruleName] = {
+                        severity: [],
+                        options: [],
+                    }
                 }
 
-                optionsList.forEach((optObj) => {
-                    acc[ruleName]!.options.push(optObj)
-                })
+                if (Array.isArray(ruleConfig)) {
+                    acc[ruleName]!.options.push(ruleConfig[1])
+                    acc[ruleName]!.severity.push(ruleConfig[0])
+                }
+                else {
+                    acc[ruleName]!.severity.push(ruleConfig)
+                }
             })
 
             return acc
-        }, {} as Record<string, { options: any[] }>)
+        }, {} as Record<string, { severity: any[], options: any[] }>)
 
     const useRulesKey = Object.keys(useRules).filter(item => (t => t.length ? t : item)(item.split('/').slice(1)))
 
@@ -59,14 +60,17 @@ const oxRules = computed(() => {
 
         if (useRulesKey.includes(rule)) {
             const options = useRules[rule]!.options
+            const severity = useRules[rule]!.severity
             rulesMap.set(rule, {
                 ...ruleMeta,
+                severity,
                 options,
             })
         }
         else {
             rulesMap.set(rule, {
                 ...ruleMeta,
+                severity: [],
                 options: [],
             })
         }
