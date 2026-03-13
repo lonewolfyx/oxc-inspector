@@ -51,7 +51,7 @@ export interface IRulesMeta {
     defaultOptions: unknown[]
     schema: JSONSchema4
     options?: unknown[]
-    severity?: string[]
+    severity?: AllowWarnDeny[]
 }
 
 export type LintPluginOptionsSchema
