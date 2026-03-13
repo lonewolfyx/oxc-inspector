@@ -9,12 +9,18 @@
     "bugs": {
         "url": "https://github.com/lonewolfyx/oxc-inspector/issues"
     },
+    "keywords": [
+        "oxc",
+        "oxlint",
+        "oxfmt",
+        "inspector"
+    ],
     "exports": {
         ".": "./dist/cli.mjs",
         "./package.json": "./package.json"
     },
     "bin": {
-        "oxc-inspector": "./bin/cli.js",
+        "oxrc-inspector": "./bin/cli.js",
         "oc": "./bin/cli.js"
     },
     "scripts": {
