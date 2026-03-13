@@ -101,3 +101,45 @@ export interface IOXLintConfig {
     configs: IResolveConfigMeta[]
     rules: IResolveLinterConfigRules
 }
+
+export interface IPackageExitisMeta {
+    exists: boolean
+    version: string
+}
+
+export type ProjectFrameworks = 'vue'
+    | 'nuxt'
+    | 'vitepress'
+    | 'react'
+    | 'nextjs'
+    | 'astro'
+    | 'nitro'
+    | 'lit'
+    | 'svelte'
+    | 'solid'
+    | 'angular'
+    | 'electron'
+    | 'tailwindcss'
+    | 'unocss'
+    | 'eslint'
+    | 'prettier'
+    | 'typescript'
+    | 'jest'
+    | 'vitest'
+    | 'oxlint'
+    | 'oxfmt'
+    | 'shadcn'
+    | 'shadcnVue'
+
+export type IProjectEnv = Record<ProjectFrameworks, IPackageExitisMeta>
+
+export interface IResolveProjectConfig {
+    package: {
+        name: string
+        version: string
+        description: string
+        dependencies: Record<string, string>
+        devDependencies: Record<string, string>
+    }
+    env: IProjectEnv
+}

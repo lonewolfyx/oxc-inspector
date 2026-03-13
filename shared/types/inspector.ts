@@ -1,6 +1,6 @@
 import type { FormatOptions } from 'oxfmt'
 import type { ComputedRef, Ref, ShallowRef } from 'vue'
-import type { ErrorInfo, ESLintConfig, IOXLintConfig } from './types'
+import type { ErrorInfo, ESLintConfig, IOXLintConfig, IResolveProjectConfig } from './types'
 
 export interface IFormatOverRides {
     excludeFiles: string[]
@@ -31,6 +31,7 @@ export interface IConfigInspectorMeta {
 }
 
 export interface ILinterInspectorPayload {
+    projects: IResolveProjectConfig
     oxlint: IOXLintConfig
     oxfmt: IFormatConfigMeta[] | null
     eslint: Omit<ESLintConfig, 'dependencies'>

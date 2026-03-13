@@ -1,12 +1,15 @@
 import type { ILinterInspectorPayload } from '#shared/types/inspector'
 import type { IResolveConfigPath } from '#shared/types/types'
 import {
+    getProjectConfig,
     resolveEslintRulesConfig,
     resolveOXFormatConfig,
     resolveOXLintConfig,
 } from './config'
 
-export async function readConfig(resolvedConfigPath: IResolveConfigPath): Promise<ILinterInspectorPayload> {
+export async function readConfig(
+    resolvedConfigPath: IResolveConfigPath,
+): Promise<ILinterInspectorPayload> {
     const {
         basePath,
         lintConfigPath,
@@ -16,6 +19,9 @@ export async function readConfig(resolvedConfigPath: IResolveConfigPath): Promis
         formatVersion,
     } = resolvedConfigPath
 
+    const projects = await getProjectConfig(resolvedConfigPath)
+    // console.log(projects)
+    // process.exit(0)
     const oxfmt = await resolveOXFormatConfig(resolvedConfigPath)
 
     const oxlint = await resolveOXLintConfig(resolvedConfigPath)
@@ -23,6 +29,7 @@ export async function readConfig(resolvedConfigPath: IResolveConfigPath): Promis
     const eslintConfig = await resolveEslintRulesConfig(resolvedConfigPath)
 
     return {
+        projects,
         oxlint,
         oxfmt,
         eslint: {
@@ -45,7 +52,8 @@ export async function readConfig(resolvedConfigPath: IResolveConfigPath): Promis
     }
 }
 
-// readConfig(resolveConfig()).then((r) => {
+// const options = await resolveConfigPath(resolveConfig())
+// readConfig(options).then((r) => {
 //     console.log(r)
 //     writeFileSync(
 //         resolve(r.meta.basePath, 'oxc-inspector.meta.json'),
