@@ -25,8 +25,8 @@
                     <div
                         :class="cn(
                             'absolute -top-2.5 left-2',
-                            'bg-teal-500/80 rounded px-2',
-                            'text-sm font-medium',
+                            'bg-teal-600 rounded px-2',
+                            'text-sm font-medium text-white',
                         )"
                     >
                         {{ i.version }}
