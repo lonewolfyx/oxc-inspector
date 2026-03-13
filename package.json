@@ -1,7 +1,7 @@
 {
     "name": "oxrc-inspector",
     "type": "module",
-    "version": "0.0.0-alpha.1",
+    "version": "0.0.0-alpha.2",
     "packageManager": "pnpm@10.15.1",
     "description": "A visual tool for inspecting and understanding your oxlint and oxfmt config.",
     "license": "MIT",
@@ -23,6 +23,9 @@
         "oxrc-inspector": "./bin/cli.js",
         "oc": "./bin/cli.js"
     },
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "nuxt build && tsdown && node ./bin/cli.js build",
         "dev": "nuxt dev",
