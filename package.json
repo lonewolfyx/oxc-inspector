@@ -15,10 +15,6 @@
         "oxfmt",
         "inspector"
     ],
-    "exports": {
-        ".": "./dist/cli.mjs",
-        "./package.json": "./package.json"
-    },
     "bin": {
         "oxrc-inspector": "./bin/cli.js",
         "oc": "./bin/cli.js"
