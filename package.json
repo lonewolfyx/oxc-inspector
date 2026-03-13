@@ -31,9 +31,7 @@
         "migrate": "npx @oxlint/migrate ./eslint.config.mjs"
     },
     "dependencies": {
-        "@tailwindcss/vite": "^4.2.1",
         "@tanstack/vue-table": "^8.21.3",
-        "@vueuse/core": "^14.2.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "esbuild": "^0.27.4",
@@ -62,10 +60,12 @@
         "@shikijs/themes": "^4.0.2",
         "@shikijs/transformers": "^4.0.2",
         "@stylistic/eslint-plugin": "^5.10.0",
+        "@tailwindcss/vite": "^4.2.1",
         "@types/json-schema": "^7.0.15",
         "@types/node": "^25.3.5",
         "@types/ws": "^8.18.1",
         "@typescript-eslint/utils": "^8.57.0",
+        "@vueuse/core": "^14.2.1",
         "@vueuse/nuxt": "^14.2.1",
         "ansis": "^4.2.0",
         "bundle-require": "^5.1.0",
