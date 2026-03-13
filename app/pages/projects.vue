@@ -10,13 +10,13 @@
                     :key="idx"
                     :class="cn(
                         'relative flex flex-col justify-center items-center gap-4',
-                        'bg-secondary w-auto h-24 cursor-pointer',
+                        'bg-secondary dark:bg-slate-800/70 w-auto h-24 cursor-pointer',
                         'rounded-2xl transition-all',
-                        'text-foreground hover:text-black',
+                        'text-foreground',
                         {
                             'opacity-20': !i.exists,
                         },
-                        'data-[exists=false]:hover:opacity-100 data-[exists=false]:hover:text-black',
+                        'data-[exists=false]:hover:opacity-100 data-[exists=false]:hover:text-white',
                         'data-[exists=true]:hover:bg-teal-500/20',
                         'data-[exists=true]:hover:opacity-100',
                     )"
