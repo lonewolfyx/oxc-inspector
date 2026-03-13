@@ -10,7 +10,6 @@ import { createWebSocketServer } from '~~/src/ws'
 export const distDir = fileURLToPath(new URL('../dist/public', import.meta.url))
 
 export async function createHostServer(options: IResolveConfig) {
-    console.log(options)
     const app = createApp()
 
     const ws = await createWebSocketServer(options)
