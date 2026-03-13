@@ -11,6 +11,7 @@ import type { ExternalPluginEntry, OxlintConfig } from 'oxlint'
 import type { IOxlintRules, oxlintRuleMeta } from 'oxlint-rules-meta'
 import { isObject } from '@vueuse/core'
 import c from 'ansis'
+import { resolvePath } from 'mlly'
 import { getRuleMeta } from 'oxlint-rules-meta'
 import { x } from 'tinyexec'
 import { MARK_INFO } from '../constants'
@@ -110,6 +111,7 @@ function resolveConfigPlugins(config: OxlintConfig): ExternalPluginEntry[] {
 
 // Load all the rule data information that is used.
 async function resolveLinterRules(
+    options: IResolveConfigPath,
     linterRules: IOxlintRules[],
     plugins: ExternalPluginEntry[],
 ): Promise<IResolveLinterConfigRules> {
@@ -131,7 +133,8 @@ async function resolveLinterRules(
     })
 
     const parsePluginRules = async (plugin: string) => {
-        const module = (await interopDefault(import(plugin))) as ESLint.Plugin
+        const pluginPath = await resolvePath(plugin, { url: options.basePath })
+        const module = (await interopDefault(import(pluginPath))) as ESLint.Plugin
 
         for (const [rule, ruleMeta] of Object.entries(module?.rules ?? [])) {
             rules.set(rule, {
@@ -181,7 +184,7 @@ export async function resolveOXLintConfig(options: IResolveConfigPath): Promise<
 
     const plugins = resolveConfigPlugins(rawLinterConfigs)
 
-    const rules = await resolveLinterRules(JSON.parse(rawLinterRules.stdout.trim()), plugins)
+    const rules = await resolveLinterRules(options, JSON.parse(rawLinterRules.stdout.trim()), plugins)
 
     const configs = resolveConfigRules(rawLinterConfigs)
 
