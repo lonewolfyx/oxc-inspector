@@ -141,6 +141,9 @@ importers:
       get-port-please:
         specifier: ^3.2.0
         version: 3.2.0
+      glob:
+        specifier: ^13.0.6
+        version: 13.0.6
       json-schema:
         specifier: ^0.4.0
         version: 0.4.0
@@ -198,6 +201,9 @@ importers:
       tinyexec:
         specifier: ^1.0.2
         version: 1.0.2
+      tinyglobby:
+        specifier: ^0.2.15
+        version: 0.2.15
       tsdown:
         specifier: ^0.21.2
         version: 0.21.2(synckit@0.11.12)(typescript@5.9.3)
