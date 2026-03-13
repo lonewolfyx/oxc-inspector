@@ -5,6 +5,8 @@ import type { Linter } from 'eslint'
 import type { JSONSchema4 } from 'json-schema'
 import type { AllowWarnDeny, DummyRule, DummyRuleMap, ExternalPluginEntry } from 'oxlint'
 
+export type SeverityValue = 'off' | 'warn' | 'error'
+
 export interface IResolveConfig {
     cwd: string
 }
@@ -49,6 +51,7 @@ export interface IRulesMeta {
     defaultOptions: unknown[]
     schema: JSONSchema4
     options?: unknown[]
+    severity?: string[]
 }
 
 export type LintPluginOptionsSchema
