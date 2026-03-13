@@ -1,5 +1,24 @@
 <template>
     <div class="relative p-4 py-3 border rounded max-w-full overflow-hidden space-y-2">
+        <div class="absolute top-2 right-4">
+            <template v-if="routePath === 'configs'">
+                <ConfigSeverityIcon
+                    :severity="getRuleSeverity(rule.level)"
+                />
+            </template>
+            <template v-else>
+                <div v-if="rule.severity?.length" class="flex flex-col items-start">
+                    <div
+                        v-for="severity in rule.severity"
+                        :key="severity as string"
+                    >
+                        <ConfigSeverityIcon
+                            :severity="getRuleSeverity(severity)"
+                        />
+                    </div>
+                </div>
+            </template>
+        </div>
         <div>
             <Popover>
                 <PopoverTrigger>
@@ -75,14 +94,16 @@
 
 <script lang="ts" setup>
 import type { IRulesMeta } from '#shared/types/types'
+import type { AllowWarnDeny } from 'oxlint'
 import { cn } from '~/lib/utils'
+import { getRuleSeverity } from '~/utils/rules'
 
 defineOptions({
     name: 'RuleItems',
 })
 
 const props = defineProps<{
-    rule: IRulesMeta & { level: string }
+    rule: IRulesMeta & { level: AllowWarnDeny }
 }>()
 
 const { copy } = useClipboard()
@@ -90,4 +111,6 @@ const { copy } = useClipboard()
 const defaultOptions = computed(() => props.rule.defaultOptions.length ? props.rule.defaultOptions : [])
 
 const ruleOptions = computed(() => props.rule.options ?? [])
+
+const routePath = computed(() => useRoute().name)
 </script>
