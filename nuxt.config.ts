@@ -37,6 +37,28 @@ export default defineNuxtConfig({
         ],
     },
 
+    nitro: {
+        preset: 'static',
+        output: {
+            dir: './dist',
+        },
+        routeRules: {
+            '/': {
+                prerender: true,
+            },
+            '/200.html': {
+                prerender: true,
+            },
+            '/404.html': {
+                prerender: true,
+            },
+            '/*': {
+                prerender: false,
+            },
+        },
+        sourceMap: false,
+    },
+
     shadcn: {
         prefix: '',
         componentDir: './app/components/ui',
