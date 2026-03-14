@@ -23,7 +23,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "nuxt build && tsdown && node ./bin/cli.js",
+        "build": "nuxt build && tsdown && node ./bin/cli.js build",
         "dev": "nuxt dev",
         "dev:cli": "tsdown --watch",
         "generate": "nuxt generate",
