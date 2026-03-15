@@ -24,7 +24,6 @@ describe('oxlint migrate test', () => {
             jsPlugins: true,
         })
         console.log(config)
-
         console.log(reporter.getWarnings())
         console.log(reporter.getSkippedRulesByCategory())
     })
