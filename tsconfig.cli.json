@@ -6,7 +6,7 @@
         "lib": ["ESNext"],
         "moduleDetection": "force",
         "useDefineForClassFields": true,
-        "module": "preserve",
+        "module": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
             "~~/*": [
@@ -38,6 +38,8 @@
     },
     "include": [
         "./shared/**/*.d.ts",
-        "./src/"
+        "./src/",
+        "vitest.config.*",
+        "tsdown.config.*"
     ]
 }

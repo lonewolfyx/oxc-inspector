@@ -14,9 +14,6 @@
         },
         {
             "path": "./tsconfig.cli.json"
-        },
-        {
-            "path": "./tsconfig.vitest.json"
         }
     ],
     // https://nuxt.com/docs/guide/concepts/typescript

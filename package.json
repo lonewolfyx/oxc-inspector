@@ -34,7 +34,8 @@
         "prepare": "nuxt prepare && simple-git-hooks",
         "prepublishOnly": "pnpm build",
         "migrate": "npx @oxlint/migrate ./eslint.config.mjs",
-        "test": "vitest"
+        "test": "vitest",
+        "test:cov": "vitest run --coverage"
     },
     "dependencies": {
         "@tanstack/vue-table": "^8.21.3",
@@ -71,6 +72,7 @@
         "@types/node": "^25.3.5",
         "@types/ws": "^8.18.1",
         "@typescript-eslint/utils": "^8.57.0",
+        "@vitest/coverage-v8": "^4.1.0",
         "@vueuse/core": "^14.2.1",
         "@vueuse/nuxt": "^14.2.1",
         "ansis": "^4.2.0",
