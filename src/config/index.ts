@@ -1,5 +1,6 @@
 export * from './config'
 export * from './eslint'
+export * from './migrate'
 export * from './oxfmt'
 export * from './oxlint'
 export * from './projects'
