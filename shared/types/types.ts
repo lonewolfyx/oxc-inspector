@@ -143,3 +143,11 @@ export interface IResolveProjectConfig {
     }
     env: IProjectEnv
 }
+
+export type oxlintScene = 'native' | 'default' | 'max'
+
+export type oxlintScenMeta = Record<oxlintScene, {
+    withNursery: boolean
+    typeAware: boolean
+    jsPlugins: boolean
+}>
