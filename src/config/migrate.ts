@@ -1,4 +1,12 @@
-import type { FlatConfigItem, IResolveConfigPath, oxlintScene, oxlintScenMeta } from '~~/shared/types/types'
+import type { MigrateOxlintConfig } from '#shared/types/oxlint.migrate'
+import type {
+    FlatConfigItem,
+    IMigrateScene,
+    IResolveConfigPath,
+    IResolveSceneConfig,
+    oxlintScene,
+    oxlintScenMeta,
+} from '~~/shared/types/types'
 import migrate from '@oxlint/migrate'
 import { OXLintMigrateReporter } from '~~/src/reporter'
 
@@ -20,14 +28,14 @@ const oxlintMigrateScene: oxlintScenMeta = {
     },
 }
 
-export async function migrateScene(scene: oxlintScene, configs: FlatConfigItem[]) {
+export async function migrateScene(scene: oxlintScene, configs: FlatConfigItem[]): Promise<IMigrateScene> {
     const reporter = new OXLintMigrateReporter()
 
     const config = await migrate(configs, undefined, {
         reporter,
         merge: false,
         ...oxlintMigrateScene[scene],
-    })
+    }) as MigrateOxlintConfig
 
     return {
         config,
@@ -36,7 +44,7 @@ export async function migrateScene(scene: oxlintScene, configs: FlatConfigItem[]
     }
 }
 
-export async function resolveSceneConfig(config: FlatConfigItem[]) {
+export async function resolveSceneConfig(config: FlatConfigItem[]): Promise<IResolveSceneConfig> {
     return {
         native: await migrateScene('native', config),
         default: await migrateScene('default', config),

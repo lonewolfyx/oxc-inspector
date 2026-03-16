@@ -1,5 +1,6 @@
 // oxlint-disable typescript/no-explicit-any
 
+import type { MigrateOxlintConfig, SkippedCategoryGroup } from '#shared/types/oxlint.migrate'
 import type { RuleMetaData } from '@typescript-eslint/utils/ts-eslint'
 import type { Linter } from 'eslint'
 import type { JSONSchema4 } from 'json-schema'
@@ -151,3 +152,11 @@ export type oxlintScenMeta = Record<oxlintScene, {
     typeAware: boolean
     jsPlugins: boolean
 }>
+
+export interface IMigrateScene {
+    config: MigrateOxlintConfig
+    warning: string[]
+    skippedRules: SkippedCategoryGroup
+}
+
+export type IResolveSceneConfig = Record<oxlintScene, IMigrateScene>
