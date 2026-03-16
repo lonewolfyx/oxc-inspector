@@ -50,7 +50,6 @@ export async function createWebSocketServer(options: IResolveConfig) {
         try {
             if (!payload) {
                 return readConfig(resolvedConfigPath).then((res) => {
-                    console.log(res)
                     const _payload = payload = res
                     _payload.meta.wsPort = port
                     return _payload
