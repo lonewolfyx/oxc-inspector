@@ -31,7 +31,7 @@ async function getData(baseURL: string) {
             message: 'Inspector data loading error, Please carefully review the error message displayed on the terminal.',
         }
     })
-    console.log(payload)
+
     if ('error' in payload) {
         loading.value = false
         errorInfo.value = payload
