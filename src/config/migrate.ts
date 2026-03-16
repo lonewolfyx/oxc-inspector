@@ -1,5 +1,6 @@
-import type { MigrateOxlintConfig } from '#shared/types/oxlint.migrate'
+import type { MigrateOxlintConfig, RuleSkippedCategory } from '#shared/types/oxlint.migrate'
 import type {
+    ESLintConfig,
     FlatConfigItem,
     IMigrateScene,
     IResolveConfigPath,
@@ -52,27 +53,37 @@ export async function resolveSceneConfig(config: FlatConfigItem[]): Promise<IRes
     }
 }
 
-export async function resolveEslintMigrateConfig(options: IResolveConfigPath, eslintConfig: FlatConfigItem[]) {
+const CATEGORY_MAP = {
+    typeAware: 'type-aware',
+    nursery: 'nursery',
+    unsupported: 'unsupported',
+    notImplemented: 'not-implemented',
+    jsPlugins: 'js-plugins',
+} as const
+
+function disciplineMigrateRules(sceneConfig: IMigrateScene[]) {
+    const aggregateRules = (scenes: IMigrateScene[], category: RuleSkippedCategory): Record<string, string> => {
+        return scenes.reduce((acc, scene) => ({
+            ...acc,
+            ...scene.skippedRules[category],
+        }), {})
+    }
+
+    return Object.entries(CATEGORY_MAP).reduce((config, [apiKey, ruleKey]) => {
+        config[apiKey] = aggregateRules(sceneConfig, ruleKey)
+        return config
+    }, {} as Record<string, Record<string, string>>)
+}
+
+export async function resolveEslintMigrateConfig(options: IResolveConfigPath, eslintConfig: ESLintConfig) {
     if (!options.eslintConfigPath) {
         return {}
     }
-    const reporter = new OXLintMigrateReporter()
 
-    const config = await migrate(eslintConfig, undefined, {
-        reporter,
-        merge: false,
-        withNursery: true,
-        typeAware: true,
-        jsPlugins: true,
-    })
-
-    const shippedRules = reporter.getSkippedRulesByCategory()
+    const sceneConfig = await resolveSceneConfig(eslintConfig.configs)
 
     return {
-        config,
-        shippedRules,
-        'nursery': shippedRules.nursery,
-        'not-implemented': shippedRules['not-implemented'],
-        'unsupported': shippedRules.unsupported,
+        sceneConfig,
+        migrateConfig: disciplineMigrateRules(Object.values(sceneConfig)),
     }
 }

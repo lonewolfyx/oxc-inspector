@@ -20,7 +20,7 @@ describe('oxlint migrate test', () => {
         })
         const eslint = await resolveEslintRulesConfig(options)
 
-        const migrateConfig = await resolveEslintMigrateConfig(options, eslint.configs)
+        const migrateConfig = await resolveEslintMigrateConfig(options, eslint)
 
         expect(migrateConfig).toMatchFileSnapshot(`./migrate.json`)
         // console.log(reporter.getWarnings())
