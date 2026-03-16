@@ -16,8 +16,11 @@ export async function resolveEslintMigrateConfig(options: IResolveConfigPath, es
         jsPlugins: true,
     })
 
-    console.log(config)
-    return {
+    const shippedRules = reporter.getSkippedRulesByCategory()
 
+    return {
+        config,
+        'not-implemented': shippedRules['not-implemented'],
+        'unsupported': shippedRules.unsupported,
     }
 }

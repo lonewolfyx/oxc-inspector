@@ -1,7 +1,5 @@
-import migrate from '@oxlint/migrate'
 import { describe, expect, it } from 'vitest'
-import { resolveConfigPath, resolveEslintRulesConfig } from '../src/config'
-import { OXLintMigrateReporter } from '../src/reporter'
+import { resolveConfigPath, resolveEslintMigrateConfig, resolveEslintRulesConfig } from '../src/config'
 
 describe('oxlint migrate test', () => {
     it('should loading eslint config path ', async () => {
@@ -12,19 +10,15 @@ describe('oxlint migrate test', () => {
     })
 
     it('should load migrate eslint data ', async () => {
-        const eslint = await resolveEslintRulesConfig(await resolveConfigPath({
+        const options = await resolveConfigPath({
             cwd: process.cwd(),
-        }))
-        const reporter = new OXLintMigrateReporter()
-        const config = await migrate(eslint.configs, undefined, {
-            reporter,
-            merge: false,
-            withNursery: true,
-            typeAware: true,
-            jsPlugins: true,
         })
-        console.log(config)
-        console.log(reporter.getWarnings())
-        console.log(reporter.getSkippedRulesByCategory())
+        const eslint = await resolveEslintRulesConfig(options)
+
+        const migrateConfig = await resolveEslintMigrateConfig(options, eslint.configs)
+
+        expect(migrateConfig).toMatchFileSnapshot(`./migrate.json`)
+        // console.log(reporter.getWarnings())
+        // console.log(reporter.getSkippedRulesByCategory())
     })
 })
