@@ -49,9 +49,13 @@ export async function createWebSocketServer(options: IResolveConfig) {
     const getPayloadData = async () => {
         try {
             if (!payload) {
-                payload = await readConfig(resolvedConfigPath)
+                return readConfig(resolvedConfigPath).then((res) => {
+                    console.log(res)
+                    const _payload = payload = res
+                    _payload.meta.wsPort = port
+                    return _payload
+                })
             }
-            return payload
         }
         catch {
             return {

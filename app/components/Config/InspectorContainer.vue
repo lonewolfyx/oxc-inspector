@@ -22,6 +22,8 @@ const loading = ref<boolean>(true)
 const data = ref<ILinterInspectorPayload>()
 const errorInfo = ref<ErrorInfo>()
 
+const LOG_NAME = '[OXC Config Inspector]'
+
 let _promise: Promise<ILinterInspectorPayload | undefined> | undefined
 
 async function getData(baseURL: string) {
@@ -31,7 +33,6 @@ async function getData(baseURL: string) {
             message: 'Inspector data loading error, Please carefully review the error message displayed on the terminal.',
         }
     })
-
     if ('error' in payload) {
         loading.value = false
         errorInfo.value = payload
@@ -39,7 +40,7 @@ async function getData(baseURL: string) {
     }
     loading.value = false
     data.value = payload
-    console.log('[OXC Config Inspector] Config payload', payload)
+    console.log(`${LOG_NAME} Config payload`, payload)
     return payload
 }
 
@@ -53,6 +54,27 @@ async function init(baseURL: string) {
     _promise = getData(baseURL).then((res) => {
         if (!res)
             return
+
+        if (typeof res.meta.wsPort === 'number') {
+            // Connect to WebSocket, listen for config changes
+            const ws = new WebSocket(`ws://${location.hostname}:${res.meta.wsPort}`)
+            ws.addEventListener('message', async (event) => {
+                console.log(LOG_NAME, 'WebSocket message', event.data)
+                const payload = JSON.parse(event.data)
+                if (payload.type === 'config-change')
+                    await getData(baseURL)
+            })
+            ws.addEventListener('open', () => {
+                console.log(LOG_NAME, 'WebSocket connected')
+            })
+            ws.addEventListener('close', () => {
+                console.log(LOG_NAME, 'WebSocket closed')
+            })
+            ws.addEventListener('error', (error) => {
+                console.error(LOG_NAME, 'WebSocket error', error)
+            })
+        }
+
         return res
     })
 }

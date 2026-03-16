@@ -28,6 +28,7 @@ export interface IConfigInspectorMeta {
     lintConfigPath: string
     formatConfigPath: string
     eslintConfigPath: string
+    wsPort?: number
 }
 
 export interface ILinterInspectorPayload {
