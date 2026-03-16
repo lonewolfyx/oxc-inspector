@@ -4,6 +4,7 @@ import type {
     FlatConfigItem,
     IMigrateScene,
     IResolveConfigPath,
+    IResolveEslintMigrateConfig,
     IResolveSceneConfig,
     oxlintScene,
     oxlintScenMeta,
@@ -75,7 +76,7 @@ function disciplineMigrateRules(sceneConfig: IMigrateScene[]) {
     }, {} as Record<string, Record<string, string>>)
 }
 
-export async function resolveEslintMigrateConfig(options: IResolveConfigPath, eslintConfig: ESLintConfig) {
+export async function resolveEslintMigrateConfig(options: IResolveConfigPath, eslintConfig: ESLintConfig): Promise<IResolveEslintMigrateConfig> {
     if (!options.eslintConfigPath) {
         return {}
     }

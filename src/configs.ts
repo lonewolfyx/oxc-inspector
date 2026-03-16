@@ -2,6 +2,7 @@ import type { ILinterInspectorPayload } from '#shared/types/inspector'
 import type { IResolveConfigPath } from '#shared/types/types'
 import {
     getProjectConfig,
+    resolveEslintMigrateConfig,
     resolveEslintRulesConfig,
     resolveOXFormatConfig,
     resolveOXLintConfig,
@@ -27,10 +28,13 @@ export async function readConfig(
 
     const eslintConfig = await resolveEslintRulesConfig(resolvedConfigPath)
 
+    const migrateConfig = await resolveEslintMigrateConfig(resolvedConfigPath, eslintConfig)
+
     return {
         projects,
         oxlint,
         oxfmt,
+        migrate: migrateConfig,
         eslint: {
             configs: eslintConfig.configs,
             rules: eslintConfig.rules,

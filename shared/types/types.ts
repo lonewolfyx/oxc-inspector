@@ -160,3 +160,8 @@ export interface IMigrateScene {
 }
 
 export type IResolveSceneConfig = Record<oxlintScene, IMigrateScene>
+
+export interface IResolveEslintMigrateConfig {
+    sceneConfig?: IResolveSceneConfig
+    migrateConfig?: unknown
+}
