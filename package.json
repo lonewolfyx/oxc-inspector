@@ -34,7 +34,7 @@
         "prepare": "nuxt prepare && simple-git-hooks",
         "prepublishOnly": "pnpm build",
         "migrate": "npx @oxlint/migrate ./eslint.config.mjs",
-        "test": "vitest",
+        "test": "vitest -u=all",
         "test:cov": "vitest run --coverage"
     },
     "dependencies": {
