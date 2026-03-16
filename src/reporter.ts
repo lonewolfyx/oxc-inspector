@@ -1,0 +1,42 @@
+import type { Reporter, RuleSkippedCategory, SkippedCategoryGroup } from '#shared/types/oxlint.migrate'
+
+export class OXLintMigrateReporter implements Reporter {
+    private warnings = new Set<string>()
+    private skippedRules = new Map<RuleSkippedCategory, Set<string>>([
+        ['nursery', new Set<string>()],
+        ['type-aware', new Set<string>()],
+        ['not-implemented', new Set<string>()],
+        ['unsupported', new Set<string>()],
+        ['js-plugins', new Set<string>()],
+    ])
+
+    public addWarning(message: string): void {
+        this.warnings.add(message)
+    }
+
+    public getWarnings(): string[] {
+        return Array.from(this.warnings)
+    }
+
+    public markSkipped(rule: string, category: RuleSkippedCategory): void {
+        this.skippedRules.get(category)?.add(rule)
+    }
+
+    public removeSkipped(rule: string, category: RuleSkippedCategory): void {
+        this.skippedRules.get(category)?.delete(rule)
+    }
+
+    public getSkippedRulesByCategory(): SkippedCategoryGroup {
+        const result: SkippedCategoryGroup = {
+            'nursery': [],
+            'type-aware': [],
+            'not-implemented': [],
+            'js-plugins': [],
+            'unsupported': [],
+        }
+        for (const [category, rules] of this.skippedRules) {
+            result[category] = Array.from(rules)
+        }
+        return result
+    }
+}

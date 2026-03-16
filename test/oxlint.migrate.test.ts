@@ -1,0 +1,24 @@
+import { describe, expect, it } from 'vitest'
+import { resolveConfigPath, resolveEslintMigrateConfig, resolveEslintRulesConfig } from '../src/config'
+
+describe('oxlint migrate test', () => {
+    it('should loading eslint config path ', async () => {
+        const { eslintConfigPath } = await resolveConfigPath({
+            cwd: process.cwd(),
+        })
+        expect(eslintConfigPath).toMatch('eslint.config.mjs')
+    })
+
+    it('should load migrate eslint data ', async () => {
+        const options = await resolveConfigPath({
+            cwd: process.cwd(),
+        })
+        const eslint = await resolveEslintRulesConfig(options)
+
+        const migrateConfig = await resolveEslintMigrateConfig(options, eslint.configs)
+
+        expect(migrateConfig).toMatchFileSnapshot(`./migrate.json`)
+        // console.log(reporter.getWarnings())
+        // console.log(reporter.getSkippedRulesByCategory())
+    })
+})
