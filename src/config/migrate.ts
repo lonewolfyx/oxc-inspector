@@ -11,6 +11,7 @@ import type {
 } from '~~/shared/types/types'
 import migrate from '@oxlint/migrate'
 import { OXLintMigrateReporter } from '~~/src/reporter'
+import { unsupportedRules } from '~~/src/unsupported-rules.json' with { type: 'json' }
 
 const oxlintMigrateScene: oxlintScenMeta = {
     native: {
@@ -76,6 +77,13 @@ function disciplineMigrateRules(sceneConfig: IMigrateScene[]) {
     }, {} as Record<string, Record<string, string>>)
 }
 
+function formatUnSupportRulesReasons(rules: Record<string, string>) {
+    return Object.entries(rules).reduce((acc, [_, rule]) => {
+        acc[rule] = unsupportedRules[(rule.split('/').length > 1 ? rule : `eslint/${rule}`) as keyof typeof unsupportedRules]
+        return acc
+    }, {} as Record<string, string>)
+}
+
 export async function resolveEslintMigrateConfig(options: IResolveConfigPath, eslintConfig: ESLintConfig): Promise<IResolveEslintMigrateConfig> {
     if (!options.eslintConfigPath) {
         return {}
@@ -83,8 +91,13 @@ export async function resolveEslintMigrateConfig(options: IResolveConfigPath, es
 
     const sceneConfig = await resolveSceneConfig(eslintConfig.configs)
 
+    const migrateConfig = disciplineMigrateRules(Object.values(sceneConfig))
+    if ('unsupported' in migrateConfig && Object.keys(migrateConfig.unsupported).length) {
+        migrateConfig.unsupported = formatUnSupportRulesReasons(migrateConfig.unsupported)
+    }
+
     return {
         sceneConfig,
-        migrateConfig: disciplineMigrateRules(Object.values(sceneConfig)),
+        migrateConfig,
     }
 }
