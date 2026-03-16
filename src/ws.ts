@@ -55,6 +55,8 @@ export async function createWebSocketServer(options: IResolveConfig) {
                     return _payload
                 })
             }
+
+            return payload
         }
         catch {
             return {
