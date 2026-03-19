@@ -3,7 +3,7 @@
         <div class="absolute top-2 right-4">
             <template v-if="routePath === 'configs'">
                 <ConfigSeverityIcon
-                    :severity="getRuleSeverity(rule.level)"
+                    :severity="getRuleSeverity(rule?.level ?? 'off')"
                 />
             </template>
             <template v-else>
@@ -44,7 +44,7 @@
 
                         <div class="flex justify-start items-center gap-2 font-mono text-xs font-extrabold">
                             <ConfigSeverityIcon
-                                :severity="getRuleSeverity(rule.level)"
+                                :severity="getRuleSeverity(rule?.level ?? 'off')"
                             />
                             <span class="opacity-40">Set to</span>
                             <Button
@@ -52,10 +52,10 @@
                                 size="sm"
                                 :class="cn(
                                     'font-mono font-extrabold',
-                                    colors[getRuleSeverity(rule.level)],
+                                    colors[getRuleSeverity(rule?.level ?? 'off')],
                                 )"
                             >
-                                {{ getRuleSeverity(rule.level) }}
+                                {{ getRuleSeverity(rule?.level ?? 'off') }}
                             </Button>
                             <span class="opacity-40">in this config</span>
                         </div>
@@ -122,7 +122,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-    rule: IRulesMeta & { level: AllowWarnDeny }
+    rule: IRulesMeta & { level?: AllowWarnDeny }
 }>()
 
 const { copy } = useClipboard()
