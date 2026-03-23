@@ -58,6 +58,13 @@ export interface IRulesMeta {
     schema: JSONSchema4
     options?: unknown[]
     severity?: AllowWarnDeny[]
+    plugin: string
+    isUsing: boolean
+    isUnused: boolean
+    isOnlyOff: boolean
+    hasError: boolean
+    hasWarn: boolean
+    hasOff: boolean
 }
 
 export type LintPluginOptionsSchema

@@ -122,20 +122,44 @@ const oxRules = computed(() => {
             rulesMap.set(rule, {})
         }
 
+        const plugin = ruleMeta.source
+
         if (useRulesKey.includes(rule)) {
             const options = useRules[rule]!.options
             const severity = useRules[rule]!.severity
+
+            // Calculate status based on severity array
+            const hasNonOff = severity.some((s: any) => s !== 'off' && s !== 'allow' && s !== 0)
+            const allOff = severity.length > 0 && severity.every((s: any) => s === 'off' || s === 'allow' || s === 0)
+            const hasError = severity.some((s: any) => s === 'error' || s === 'deny' || s === 2)
+            const hasWarn = severity.some((s: any) => s === 'warn' || s === 1)
+            const hasOff = severity.some((s: any) => s === 'off' || s === 'allow' || s === 0)
+
             rulesMap.set(rule, {
                 ...ruleMeta,
+                plugin,
                 severity,
                 options,
+                isUsing: hasNonOff,
+                isUnused: false,
+                isOnlyOff: allOff,
+                hasError,
+                hasWarn,
+                hasOff,
             })
         }
         else {
             rulesMap.set(rule, {
                 ...ruleMeta,
+                plugin,
                 severity: [],
                 options: [],
+                isUsing: false,
+                isUnused: true,
+                isOnlyOff: false,
+                hasError: false,
+                hasWarn: false,
+                hasOff: false,
             })
         }
     }
