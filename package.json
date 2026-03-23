@@ -1,7 +1,7 @@
 {
     "name": "oxrc-inspector",
     "type": "module",
-    "version": "0.0.0-alpha.5",
+    "version": "0.0.1",
     "packageManager": "pnpm@10.15.1",
     "description": "A visual tool for inspecting and understanding your oxlint and oxfmt config.",
     "license": "MIT",
