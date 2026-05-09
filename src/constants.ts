@@ -2,7 +2,7 @@ import c from 'ansis'
 
 export const lintConfigFilenames = ['.oxlintrc.json', '.oxlintrc.jsonc', 'oxlint.config.ts']
 
-export const formatConfigFilenames = ['.oxfmtrc.json']
+export const formatConfigFilenames = ['.oxfmtrc.json', '.oxfmtrc.jsonc', 'oxfmt.config.ts']
 
 export const eslintConfigFilenames = [
     'eslint.config.js',
