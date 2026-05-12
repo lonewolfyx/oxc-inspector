@@ -37,6 +37,10 @@
         "test": "vitest -u=all",
         "test:cov": "vitest run --coverage"
     },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org",
+        "access": "public"
+    },
     "dependencies": {
         "@tanstack/vue-table": "^8.21.3",
         "class-variance-authority": "^0.7.1",
